@@ -12,7 +12,15 @@ useEffect(() => {
     <div>
     <h1>Videoteca</h1>
     {videos.map(video => (
-      <p key={video.id}> {video.titulo} - {video.anime_nome}</p>
+      <div key={video.id}>
+        <p>{video.titulo} - {video.anime_nome}</p>
+        <iframe
+        src={`https://www.youtube.com/embed/${video.youtube_id}`}
+        width="560"
+        height="315"
+        allowFullScreen
+        ></iframe>
+      </div>
     ))}
     </div>
   )

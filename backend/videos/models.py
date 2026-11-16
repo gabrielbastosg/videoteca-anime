@@ -13,5 +13,9 @@ class Video(models.Model):
     anime = models.ForeignKey(Anime, on_delete=models.PROTECT, related_name='videos')
     link = models.URLField(unique=True)
 
+    @property
+    def youtube_id(self):
+        return self.link.split('v=')[1]
+
     def __str__(self):
         return self.titulo
