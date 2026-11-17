@@ -18,7 +18,10 @@ useEffect(() => {
         src={`https://www.youtube.com/embed/${video.youtube_id}`}
         allowFullScreen
         ></iframe>
-        <p>{video.titulo} - {video.anime_nome}</p>
+        <div className="video-info">
+        <p className="titulo"> {video.titulo} </p>
+        <p className="detalhes"> {video.tipo} | {video.anime_nome} </p>
+        </div>
       </div>
     ))}
       </div>

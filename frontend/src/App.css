@@ -15,3 +15,18 @@
   border-radius: 12px;
   overflow: hidden;
  }
+
+ .video-info{
+  padding: 12px;
+  text-align: left;
+ }
+
+ .titulo {
+  color:var(--text-h);
+  font-weight: 500;
+ }
+
+.detalhes {
+  font-size: 14px;
+  margin-top: 4px;
+ }
