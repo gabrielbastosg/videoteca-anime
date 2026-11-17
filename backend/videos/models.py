@@ -15,7 +15,17 @@ class Video(models.Model):
 
     @property
     def youtube_id(self):
-        return self.link.split('v=')[1]
+        if 'youtu.be' in self.link:
+            video_id = self.link.split('youtu.be/')[1]
+        elif 'shorts/' in self.link:
+            video_id = self.link.split('shorts/')[1]
+        else:
+            video_id = self.link.split('v=')[1]
+        video_id = video_id.split('&')[0]
+        video_id = video_id.split('?')[0]
+
+
+        return video_id
 
     def __str__(self):
         return self.titulo
