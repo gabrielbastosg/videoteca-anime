@@ -11,17 +11,17 @@ useEffect(() => {
   return (
     <div>
     <h1>Videoteca</h1>
+    <div className="lista-videos">
     {videos.map(video => (
-      <div key={video.id}>
+      <div key={video.id} className="video-card">
         <p>{video.titulo} - {video.anime_nome}</p>
         <iframe
         src={`https://www.youtube.com/embed/${video.youtube_id}`}
-        width="560"
-        height="315"
         allowFullScreen
         ></iframe>
       </div>
     ))}
+      </div>
     </div>
   )
 };
