@@ -18,7 +18,7 @@ def validar_link_youtube(link):
 
 class Video(models.Model):
     titulo = models.CharField(max_length=200)
-    tipo = models.CharField(max_length=100,choices=[('Edit','Edit'), ('Explained', 'Explained')],default='Edit')
+    tipo = models.CharField(max_length=100,choices=[('Edit','Edit'), ('Explained', 'Explained'), ('Musica', 'Música'), ('Humor', 'Humor')],default='Edit')
     anime = models.ForeignKey(Anime, on_delete=models.PROTECT, related_name='videos')
     link = models.URLField(unique=True, validators=[validar_link_youtube])
 
