@@ -20,7 +20,7 @@ useEffect(() => {
         ></iframe>
         <div className="video-info">
         <p className="titulo"> {video.titulo} </p>
-        <p className="detalhes"> {video.tipo} | {video.anime_nome} </p>
+        <p className="detalhes"> {video.tipo_display} | {video.anime_nome} </p>
         </div>
       </div>
     ))}
