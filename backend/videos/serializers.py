@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Video
+from .models import Video, Anime
 
 class VideoSerializer(serializers.ModelSerializer):
 
@@ -8,3 +8,9 @@ class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ['id','titulo','tipo','anime','anime_nome','link','youtube_id','tipo_display']
+
+class AnimeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Anime
+        fields = ['id','nome']
