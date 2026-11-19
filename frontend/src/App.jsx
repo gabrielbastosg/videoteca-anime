@@ -50,7 +50,10 @@ const videosMostrados = animeEscolhido === null ? videos : videos.filter(video =
     </form>
     <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
         {animes.map(anime => (
-              <button onClick={() => setAnimeEscolhido(anime.id)} key={anime.id}>{anime.nome} </button>
+              <button onClick={() => setAnimeEscolhido(anime.id)} 
+              key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''}
+              >{anime.nome} 
+              </button>
             ))}
     <div className="lista-videos">
     {videosMostrados.map(video => (
