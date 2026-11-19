@@ -5,10 +5,13 @@ import './App.css'
 function App() {
 const[videos, setVideos] = useState([])
 const[animes,setAnimes] = useState([])
+const [animeEscolhido,setAnimeEscolhido] = useState(null)
+
 useEffect(() => {
   fetch('http://127.0.0.1:8000/api/videos/').then(r => r.json()).then(setVideos)
   fetch('http://127.0.0.1:8000/api/animes/').then(r => r.json()).then(setAnimes)
 },[])
+
 
 function adicionarVideo(e) {
   e.preventDefault()
@@ -25,6 +28,7 @@ function adicionarVideo(e) {
     }
   })
 }
+const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
   return (
     <div>
     <h1>Videoteca</h1>
@@ -44,8 +48,12 @@ function adicionarVideo(e) {
       <input name='link' placeholder="link do Youtube" />
       <button>Adicionar</button>
     </form>
+    <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
+        {animes.map(anime => (
+              <button onClick={() => setAnimeEscolhido(anime.id)} key={anime.id}>{anime.nome} </button>
+            ))}
     <div className="lista-videos">
-    {videos.map(video => (
+    {videosMostrados.map(video => (
       <div key={video.id} className="video-card">
         <iframe
         src={`https://www.youtube.com/embed/${video.youtube_id}`}
