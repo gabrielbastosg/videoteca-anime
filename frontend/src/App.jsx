@@ -17,7 +17,13 @@ function adicionarVideo(e) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dados),
-  }).then(r => r.json()).then(novo => setVideos([...videos,novo]))
+  }).then(r =>{
+    if(r.ok){
+      r.json().then(novo => setVideos([...videos, novo]))
+    } else{
+      alert('Nao deu para salvar o video. Confere se o titulo e o link estao certos')
+    }
+  })
 }
   return (
     <div>
