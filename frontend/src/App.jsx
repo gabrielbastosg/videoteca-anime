@@ -32,7 +32,7 @@ const videosMostrados = animeEscolhido === null ? videos : videos.filter(video =
   return (
     <div>
     <h1>Videoteca</h1>
-    <form onSubmit={adicionarVideo}>
+    <form onSubmit={adicionarVideo} className='formulario'>
       <input name='titulo' placeholder="Título" />
       <select name='tipo'>
         <option value="Edit">Edit</option>
@@ -48,13 +48,15 @@ const videosMostrados = animeEscolhido === null ? videos : videos.filter(video =
       <input name='link' placeholder="link do Youtube" />
       <button>Adicionar</button>
     </form>
-    <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
-        {animes.map(anime => (
-              <button onClick={() => setAnimeEscolhido(anime.id)} 
-              key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''}
-              >{anime.nome} 
-              </button>
-            ))}
+      <div className='filtros'>
+        <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
+            {animes.map(anime => (
+                  <button onClick={() => setAnimeEscolhido(anime.id)} 
+                  key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''}
+                  >{anime.nome} 
+                  </button>
+                ))}
+        </div>
     <div className="lista-videos">
     {videosMostrados.map(video => (
       <div key={video.id} className="video-card">
