@@ -7,10 +7,12 @@ Fiz isso pois no YouTube, mesmo podendo guardar eles com like ou em biblioteca, 
 
 ## O que já faz
 
-- **API REST** em `/api/videos/` (Django REST Framework), que devolve cada vídeo
-  com o nome do anime junto.
-- **Tela em React** que busca essa API e lista os vídeos com o anime de cada um.
-- **Cadastro pelo admin** do Django, em `/admin/`.
+- **API REST** (Django REST Framework) com os vídeos em `/api/videos/` e os animes em `/api/animes/`.
+- **Player do YouTube** dentro de cada cartão. O Django tira o id do vídeo de qualquer formato de link (`watch?v=`, `youtu.be`, `shorts`, com `&t=` no fim).
+- **Só aceita link do YouTube**: um validator no model barra o resto, tanto pela API quanto pelo admin.
+- **Formulário no React** que adiciona vídeo novo pela API, sem recarregar a página, e avisa se o link ou o título estiverem errados.
+- **Filtro por anime** com botões, e os vídeos separados em seções por tipo (Música, Explained, Edit, Humor).
+- **Grade que se ajusta** ao PC e ao celular.
 
 ## Stack
 
