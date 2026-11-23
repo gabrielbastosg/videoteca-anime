@@ -29,7 +29,7 @@ function adicionarVideo(e) {
   })
 }
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
-const tipos = ['Humor','Música','Edit','Explained']
+const tipos = ['Música','Explained','Edit','Humor']
 const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
   return (
     <div>
