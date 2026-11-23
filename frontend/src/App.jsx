@@ -29,6 +29,8 @@ function adicionarVideo(e) {
   })
 }
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
+const tipos = ['Humor','Música','Edit','Explained']
+const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
   return (
     <div>
     <h1>Videoteca</h1>
@@ -57,8 +59,12 @@ const videosMostrados = animeEscolhido === null ? videos : videos.filter(video =
                   </button>
                 ))}
         </div>
+      
+      {tiposComVideo.map(tipo => (
+        <div key={tipo}>
+          <h2>{tipo}</h2>
     <div className="lista-videos">
-    {videosMostrados.map(video => (
+    {videosMostrados.filter(video => video.tipo_display === tipo).map(video => (
       <div key={video.id} className="video-card">
         <iframe
         src={`https://www.youtube.com/embed/${video.youtube_id}`}
@@ -69,10 +75,12 @@ const videosMostrados = animeEscolhido === null ? videos : videos.filter(video =
         <p className="detalhes"> {video.tipo_display} | {video.anime_nome} </p>
         </div>
       </div>
-    ))}
-      </div>
+      ))}
+    </div>
+        </div>
+      ))}
     </div>
   )
-};
+}
 
 export default App
