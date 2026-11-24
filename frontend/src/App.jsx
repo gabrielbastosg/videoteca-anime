@@ -67,7 +67,7 @@ const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.t
     </form>
     <form onSubmit={adicionarAnime} className='formulario'>
       <input name='nome' placeholder='Nome do anime'></input>
-      <input type="color" name="cor" /><button>Adicionar anime</button>
+      <input type="color" name="cor"  defaultValue="#d8b4fe"/><button>Adicionar anime</button>
     </form>
       <div className='filtros'>
         <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
