@@ -28,6 +28,21 @@ function adicionarVideo(e) {
     }
   })
 }
+function adicionarAnime(e) {
+  e.preventDefault()
+  const dados = Object.fromEntries(new FormData(e.target))
+  fetch('http://127.0.0.1:8000/api/animes/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados),
+  }).then(r =>{
+    if(r.ok){
+      r.json().then(novo => setAnimes([...animes, novo]))
+    } else{
+      alert('Nao deu para salvar o Anime.')
+    }
+  })
+}
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
 const tipos = ['Música','Explained','Edit','Humor']
 const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
@@ -49,6 +64,10 @@ const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.t
       </select>
       <input name='link' placeholder="link do Youtube" />
       <button>Adicionar</button>
+    </form>
+    <form onSubmit={adicionarAnime} className='formulario'>
+      <input name='nome' placeholder='Nome do anime'></input>
+      <input type="color" name="cor" /><button>Adicionar anime</button>
     </form>
       <div className='filtros'>
         <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
