@@ -35,7 +35,7 @@
  .ativo {
   background-color: var(--accent);
   color: white;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--text-h);
 }
 
 .formulario {
