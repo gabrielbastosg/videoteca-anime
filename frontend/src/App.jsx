@@ -31,6 +31,9 @@ function adicionarVideo(e) {
 function adicionarAnime(e) {
   e.preventDefault()
   const dados = Object.fromEntries(new FormData(e.target))
+  if (!dados.duasCores){
+    dados.cor2 = ''
+  }
   fetch('http://127.0.0.1:8000/api/animes/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -46,6 +49,13 @@ function adicionarAnime(e) {
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
 const tipos = ['Música','Explained','Edit','Humor']
 const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
+function fundoDoBotao(anime){
+  if (anime.cor2) {
+    return `linear-gradient(90deg ,${anime.cor}, ${anime.cor2})`
+  }else {
+    return anime.cor
+  }
+}
   return (
     <div>
     <h1>Videoteca</h1>
@@ -65,15 +75,18 @@ const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.t
       <input name='link' placeholder="link do Youtube" />
       <button>Adicionar</button>
     </form>
-    <form onSubmit={adicionarAnime} className='formulario'>
-      <input name='nome' placeholder='Nome do anime'></input>
-      <input type="color" name="cor"  defaultValue="#d8b4fe"/><button>Adicionar anime</button>
-    </form>
+      <form onSubmit={adicionarAnime} className='formulario'>
+        <input name='nome' placeholder='Nome do anime'></input>
+        <input type="color" name="cor"  defaultValue="#d8b4fe"/>
+        <label><input type="checkbox" name="duasCores" /> duas cores</label>
+        <input type="color" name="cor2" defaultValue="#d8b4fe" />
+        <button>Adicionar anime</button>
+      </form>
       <div className={animeEscolhido === null ? 'filtros' : 'filtros escolhendo'}>
         <button onClick={() => setAnimeEscolhido(null)} className={animeEscolhido === null ? 'ativo' : ''}>Todos</button>
             {animes.map(anime => (
                   <button onClick={() => setAnimeEscolhido(anime.id)} 
-                  key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''} style={{ backgroundColor: anime.cor}}
+                  key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''} style={{ background: fundoDoBotao(anime) }}
                   >{anime.nome} 
                   </button>
                 ))}
