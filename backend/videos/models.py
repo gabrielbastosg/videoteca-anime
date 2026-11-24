@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 class Anime(models.Model):
     nome = models.CharField(max_length=200, unique=True)
+    cor = models.CharField(max_length=7, blank=True)
 
     def __str__(self):
         return self.nome
