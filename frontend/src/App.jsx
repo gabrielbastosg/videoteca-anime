@@ -69,7 +69,7 @@ const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.t
       <input name='nome' placeholder='Nome do anime'></input>
       <input type="color" name="cor"  defaultValue="#d8b4fe"/><button>Adicionar anime</button>
     </form>
-      <div className='filtros'>
+      <div className={animeEscolhido === null ? 'filtros' : 'filtros escolhendo'}>
         <button onClick={() => setAnimeEscolhido(null)} className={animeEscolhido === null ? 'ativo' : ''}>Todos</button>
             {animes.map(anime => (
                   <button onClick={() => setAnimeEscolhido(anime.id)} 
