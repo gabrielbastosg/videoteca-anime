@@ -54,7 +54,7 @@ const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.t
         <button onClick={() => setAnimeEscolhido(null)}>Todos</button>
             {animes.map(anime => (
                   <button onClick={() => setAnimeEscolhido(anime.id)} 
-                  key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''}
+                  key={anime.id} className={anime.id === animeEscolhido ? 'ativo' : ''} style={{ backgroundColor: anime.cor}}
                   >{anime.nome} 
                   </button>
                 ))}
