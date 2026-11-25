@@ -9,6 +9,11 @@ class VideoSerializer(serializers.ModelSerializer):
         model = Video
         fields = ['id','titulo','tipo','anime','anime_nome','link','youtube_id','tipo_display','dono']
 
+    def validate_anime(self, anime):
+        if anime.dono != self.context['request'].user:
+            raise serializers.ValidationError('Anime não encontrado.')
+        return anime
+
 class AnimeSerializer(serializers.ModelSerializer):
     dono = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
