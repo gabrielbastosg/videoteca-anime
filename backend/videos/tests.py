@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .models import Video
+from .models import Video, validar_link_youtube
+from django.core.exceptions import ValidationError
 # Create your tests here.
 
 class YoutubeIdTest(TestCase):
@@ -14,3 +15,13 @@ class YoutubeIdTest(TestCase):
     def test_shorts(self):
         video = Video(link='https://www.youtube.com/shorts/abc123')
         self.assertEqual(video.youtube_id, 'abc123')
+
+
+class ValidarLinkTest(TestCase):
+    def test_link_fora_do_youtube(self):
+        with self.assertRaises(ValidationError):
+            validar_link_youtube('https://www.google.com')
+
+    
+    def test_link_do_youtube(self):
+        validar_link_youtube('https://www.youtube.com/watch?v=abc123')
