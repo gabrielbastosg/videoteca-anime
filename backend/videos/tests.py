@@ -1,6 +1,8 @@
 from django.test import TestCase
-from .models import Video, validar_link_youtube
+from .models import Video, validar_link_youtube, Anime
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from rest_framework.test import APITestCase
 # Create your tests here.
 
 class YoutubeIdTest(TestCase):
@@ -25,3 +27,17 @@ class ValidarLinkTest(TestCase):
     
     def test_link_do_youtube(self):
         validar_link_youtube('https://www.youtube.com/watch?v=abc123')
+
+class IsolamentoTest(APITestCase):
+    def test_amigo_nao_ve_meus_videos(self):
+        eu = User.objects.create_user(username='eu')
+        amigo = User.objects.create_user(username='amigo')
+
+        bleach = Anime.objects.create(nome='Bleach', dono=eu)
+        Video.objects.create(titulo='Edit do Bleach', anime=bleach, link='https://youtu.be/abc123', dono=eu)
+
+        self.client.force_authenticate(user=amigo)
+        resposta = self.client.get('/api/videos/')
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.json(), [])
