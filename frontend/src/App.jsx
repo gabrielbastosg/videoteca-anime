@@ -6,7 +6,7 @@ function App() {
 const[videos, setVideos] = useState([])
 const[animes,setAnimes] = useState([])
 const[animeEscolhido,setAnimeEscolhido] = useState(null)
-const[token, setToken] = useState(null)
+const[token, setToken] = useState(localStorage.getItem('token'))
 
 useEffect(() => {
   if (!token) return
@@ -59,7 +59,10 @@ function fazerLogin(e) {
     body: JSON.stringify(dados),
   }).then(r =>{
     if(r.ok){
-      r.json().then(resposta => setToken(resposta.token))
+      r.json().then(resposta => {
+         setToken(resposta.token)
+         localStorage.setItem('token',resposta.token)
+    })
     } else{
       alert('Usuario ou senha errado.')
     }
