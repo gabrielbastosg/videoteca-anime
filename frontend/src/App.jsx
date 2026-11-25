@@ -5,12 +5,15 @@ import './App.css'
 function App() {
 const[videos, setVideos] = useState([])
 const[animes,setAnimes] = useState([])
-const [animeEscolhido,setAnimeEscolhido] = useState(null)
+const[animeEscolhido,setAnimeEscolhido] = useState(null)
+const[token, setToken] = useState(null)
 
 useEffect(() => {
-  fetch('http://127.0.0.1:8000/api/videos/').then(r => r.json()).then(setVideos)
-  fetch('http://127.0.0.1:8000/api/animes/').then(r => r.json()).then(setAnimes)
-},[])
+  if (!token) return
+  const comPulseira = { headers: { Authorization: `Token ${token}` } }
+  fetch('http://127.0.0.1:8000/api/videos/', comPulseira).then(r => r.json()).then(setVideos)
+  fetch('http://127.0.0.1:8000/api/animes/', comPulseira).then(r => r.json()).then(setAnimes)
+},[token])
 
 
 function adicionarVideo(e) {
@@ -46,6 +49,23 @@ function adicionarAnime(e) {
     }
   })
 }
+
+function fazerLogin(e) {
+  e.preventDefault()
+  const dados = Object.fromEntries(new FormData(e.target))
+  fetch('http://127.0.0.1:8000/api/login/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados),
+  }).then(r =>{
+    if(r.ok){
+      r.json().then(resposta => setToken(resposta.token))
+    } else{
+      alert('Usuario ou senha errado.')
+    }
+  })
+}
+
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
 const tipos = ['Música','Explained','Edit','Humor']
 const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
@@ -59,6 +79,11 @@ function fundoDoBotao(anime){
   return (
     <div>
     <h1>Videoteca</h1>
+    <form onSubmit={fazerLogin} className='formulario'>
+      <input name='username' placeholder='Usuário' />
+      <input name='password' type='password' placeholder='Senha' />
+      <button>Entrar</button>
+    </form>
     <form onSubmit={adicionarVideo} className='formulario'>
       <input name='titulo' placeholder="Título" />
       <select name='tipo'>
