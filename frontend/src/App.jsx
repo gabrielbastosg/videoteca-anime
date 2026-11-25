@@ -68,6 +68,12 @@ function fazerLogin(e) {
     }
   })
 }
+function sair() {
+  setToken(null)
+  localStorage.removeItem('token')
+  setVideos([])
+  setAnimes([])
+}
 
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
 const tipos = ['Música','Explained','Edit','Humor']
@@ -89,7 +95,10 @@ function fundoDoBotao(anime){
       <button>Entrar</button>
     </form>
     ) : (
-      <p>Voce Entrou</p>
+        <div>
+        <p>Você entrou.</p>
+        <button onClick={sair}>Sair</button>
+      </div>
     )}
     <form onSubmit={adicionarVideo} className='formulario'>
       <input name='titulo' placeholder="Título" />
