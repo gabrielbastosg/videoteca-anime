@@ -1,11 +1,18 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-
+from django.conf import settings
 # Create your models here.
 class Anime(models.Model):
-    nome = models.CharField(max_length=200, unique=True)
+    nome = models.CharField(max_length=200)
     cor = models.CharField(max_length=7, blank=True)
     cor2 = models.CharField(max_length=7, blank=True)
+    dono = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='animes')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['dono','nome'],name='anime_unico_por_dono')
+        ]
+
 
     def __str__(self):
         return self.nome
