@@ -21,7 +21,7 @@ function adicionarVideo(e) {
   const dados = Object.fromEntries(new FormData(e.target))
   fetch('http://127.0.0.1:8000/api/videos/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json',  Authorization: `Token ${token}` },
     body: JSON.stringify(dados),
   }).then(r =>{
     if(r.ok){
@@ -39,7 +39,7 @@ function adicionarAnime(e) {
   }
   fetch('http://127.0.0.1:8000/api/animes/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Authorization: `Token ${token}` },
     body: JSON.stringify(dados),
   }).then(r =>{
     if(r.ok){
@@ -55,7 +55,7 @@ function fazerLogin(e) {
   const dados = Object.fromEntries(new FormData(e.target))
   fetch('http://127.0.0.1:8000/api/login/', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', },
     body: JSON.stringify(dados),
   }).then(r =>{
     if(r.ok){
