@@ -79,11 +79,15 @@ function fundoDoBotao(anime){
   return (
     <div>
     <h1>Videoteca</h1>
+    {token === null ? (
     <form onSubmit={fazerLogin} className='formulario'>
       <input name='username' placeholder='Usuário' />
       <input name='password' type='password' placeholder='Senha' />
       <button>Entrar</button>
     </form>
+    ) : (
+      <p>Voce Entrou</p>
+    )}
     <form onSubmit={adicionarVideo} className='formulario'>
       <input name='titulo' placeholder="Título" />
       <select name='tipo'>
