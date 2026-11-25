@@ -5,9 +5,11 @@ from .serializers import VideoSerializer, AnimeSerializer
 
 # Create your views here.
 class VideoViewSet(viewsets.ModelViewSet):
-    queryset = Video.objects.all()
     serializer_class = VideoSerializer
+    def get_queryset(self):
+        return Video.objects.filter(dono=self.request.user)
 
 class AnimeViewSet(viewsets.ModelViewSet):
-    queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
+    def get_queryset(self):
+        return Anime.objects.filter(dono=self.request.user)
