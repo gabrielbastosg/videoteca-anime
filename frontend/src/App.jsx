@@ -11,8 +11,21 @@ const[token, setToken] = useState(localStorage.getItem('token'))
 useEffect(() => {
   if (!token) return
   const comPulseira = { headers: { Authorization: `Token ${token}` } }
-  fetch('http://127.0.0.1:8000/api/videos/', comPulseira).then(r => r.json()).then(setVideos)
-  fetch('http://127.0.0.1:8000/api/animes/', comPulseira).then(r => r.json()).then(setAnimes)
+  fetch('http://127.0.0.1:8000/api/videos/', comPulseira).then(r => {
+    if (r.ok) {
+      r.json().then(setVideos)
+    } else {
+      sair()
+    }
+  })
+  fetch('http://127.0.0.1:8000/api/animes/', comPulseira).then(r => {
+    if (r.ok) {
+      r.json().then(setAnimes)
+    } else{
+      sair()
+    }
+  })
+
 },[token])
 
 
