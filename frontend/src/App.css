@@ -5,10 +5,12 @@
   padding: 16px;
 }
 
- .video-card iframe {
+ .video-card iframe , .video-card img {
   width: 100%;
   aspect-ratio: 16/9;
   border: 0;
+  object-fit: cover;
+  cursor: pointer;
  }
 
  .video-card {

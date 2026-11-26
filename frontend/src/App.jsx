@@ -6,6 +6,7 @@ function App() {
 const[videos, setVideos] = useState([])
 const[animes,setAnimes] = useState([])
 const[animeEscolhido,setAnimeEscolhido] = useState(null)
+const[videoTocando,setVideoTocando] = useState(null) 
 const[token, setToken] = useState(localStorage.getItem('token'))
 
 useEffect(() => {
@@ -156,10 +157,18 @@ function fundoDoBotao(anime){
       return (
       <div key={video.id} className="video-card">
       <div className='faixa' style={{background: fundoDoBotao(animeDoVideo)}}></div>
-        <iframe
-        src={`https://www.youtube.com/embed/${video.youtube_id}`}
-        allowFullScreen
-        ></iframe>
+          {videoTocando === video.id ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${video.youtube_id}?autoplay=1`}
+              allow="autoplay"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <img
+              src={`https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
+              onClick={() => setVideoTocando(video.id)}
+            />
+          )}
         <div className="video-info">
         <p className="titulo"> {video.titulo} </p>
         <p className="detalhes"> {video.tipo_display} | {video.anime_nome} </p>
