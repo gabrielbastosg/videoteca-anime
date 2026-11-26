@@ -207,6 +207,7 @@ function fundoDoBotao(anime){
               ))}
             </select>
             <button> Salvar</button>
+            <button type='button' onClick={ () => setVideoEditando(null)}>Cancelar</button>
           </form>
           ) : (
             <>
