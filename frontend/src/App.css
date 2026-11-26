@@ -84,3 +84,9 @@ h2{
 .faixa {
   height: 6px;
 }
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
