@@ -70,6 +70,8 @@ h2{
   text-align: left;
   margin-top: 20px;
   padding-left: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
 }
 
 .escolhendo button:not(.ativo) {
