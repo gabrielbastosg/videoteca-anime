@@ -92,6 +92,7 @@ const videosMostrados = animeEscolhido === null ? videos : videos.filter(video =
 const tipos = ['Música','Explained','Edit','Humor']
 const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
 function fundoDoBotao(anime){
+  if (!anime) return 'transparent'
   if (anime.cor2) {
     return `linear-gradient(90deg ,${anime.cor}, ${anime.cor2})`
   }else {
@@ -150,8 +151,11 @@ function fundoDoBotao(anime){
         <div key={tipo}>
           <h2>{tipo}</h2>
     <div className="lista-videos">
-    {videosMostrados.filter(video => video.tipo_display === tipo).map(video => (
+    {videosMostrados.filter(video => video.tipo_display === tipo).map(video => {
+      const animeDoVideo = animes.find(anime => anime.id === video.anime)
+      return (
       <div key={video.id} className="video-card">
+      <div className='faixa' style={{background: fundoDoBotao(animeDoVideo)}}></div>
         <iframe
         src={`https://www.youtube.com/embed/${video.youtube_id}`}
         allowFullScreen
@@ -161,7 +165,8 @@ function fundoDoBotao(anime){
         <p className="detalhes"> {video.tipo_display} | {video.anime_nome} </p>
         </div>
       </div>
-      ))}
+      )
+    })}
     </div>
         </div>
       ))}
