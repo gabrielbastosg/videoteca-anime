@@ -90,7 +90,7 @@ function sair() {
 }
 
 const videosMostrados = animeEscolhido === null ? videos : videos.filter(video => video.anime === animeEscolhido) 
-const tipos = ['Música','Explained','Edit','Humor']
+const tipos = ['Música','Opening','Explained','Edit','Humor']
 const tiposComVideo = tipos.filter(tipo => videosMostrados.some(video => video.tipo_display === tipo))
 function fundoDoBotao(anime){
   if (!anime) return 'transparent'
@@ -123,6 +123,7 @@ function fundoDoBotao(anime){
         <option value="Musica">Música</option>
         <option value="Explained">Explained</option>
         <option value="Humor">Humor</option>
+        <option value="Opening">Opening</option>
       </select>
       <select name='anime'>
         {animes.map(anime => (
