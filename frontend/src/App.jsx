@@ -7,6 +7,7 @@ const[videos, setVideos] = useState([])
 const[animes,setAnimes] = useState([])
 const[animeEscolhido,setAnimeEscolhido] = useState(null)
 const[videoTocando,setVideoTocando] = useState(null) 
+const[videoEditando, setVideoEditando] = useState(null)
 const[token, setToken] = useState(localStorage.getItem('token'))
 
 useEffect(() => {
@@ -45,6 +46,25 @@ function adicionarVideo(e) {
     }
   })
 }
+function salvarEdicao(e, id) {
+  e.preventDefault()
+  const dados = Object.fromEntries(new FormData(e.target))
+  fetch(`http://127.0.0.1:8000/api/videos/${id}/`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json',  Authorization: `Token ${token}` },
+    body: JSON.stringify(dados),
+  }).then(r =>{
+    if(r.ok){
+      r.json().then(atualizado => {
+        setVideos(videos.map(video => video.id === atualizado.id ? atualizado : video))
+        setVideoEditando(null)
+      })  
+    } else{
+      alert('Nao deu para salvar o video. Confere se o titulo e o link estao certos')
+    }
+  })
+}
+
 function adicionarAnime(e) {
   e.preventDefault()
   const dados = Object.fromEntries(new FormData(e.target))
@@ -172,8 +192,29 @@ function fundoDoBotao(anime){
             />
           )}
         <div className="video-info">
+          {videoEditando === video.id ? (
+          <form onSubmit={(e) => salvarEdicao(e, video.id)}>
+            <select name='tipo' defaultValue={video.tipo}>
+              <option value="Edit">Edit</option>
+              <option value="Musica">Música</option>
+              <option value="Explained">Explained</option>
+              <option value="Humor">Humor</option>
+              <option value="Opening">Opening</option>
+            </select>
+            <select name='anime' defaultValue={video.anime}>
+              {animes.map(anime => (
+                <option key={anime.id} value={anime.id}>{anime.nome}</option>
+              ))}
+            </select>
+            <button> Salvar</button>
+          </form>
+          ) : (
+            <>
         <p className="titulo"> {video.titulo} </p>
         <p className="detalhes"> {video.tipo_display} | {video.anime_nome} </p>
+        <button onClick={() => setVideoEditando(video.id)}>Editar</button>
+        </>
+          )}
         </div>
       </div>
       )
