@@ -9,6 +9,13 @@ const[animeEscolhido,setAnimeEscolhido] = useState(null)
 const[videoTocando,setVideoTocando] = useState(null) 
 const[videoEditando, setVideoEditando] = useState(null)
 const[token, setToken] = useState(localStorage.getItem('token'))
+const[tema, setTema] = useState(localStorage.getItem('tema') || 'claro')
+
+useEffect(() => {
+  document.documentElement.className = tema
+  localStorage.setItem('tema',tema)
+}, [tema])
+
 
 useEffect(() => {
   if (!token) return
@@ -124,6 +131,7 @@ function fundoDoBotao(anime){
     <div>
       <div className='topo'>
     <h1>Videoteca</h1>
+    <button onClick={() => setTema(tema === 'claro' ? 'escuro' : 'claro')}>Tema</button>
     {token === null ? (
     <form onSubmit={fazerLogin} className='formulario'>
       <input name='username' placeholder='Usuário' />
@@ -177,7 +185,7 @@ function fundoDoBotao(anime){
     {videosMostrados.filter(video => video.tipo_display === tipo).map(video => {
       const animeDoVideo = animes.find(anime => anime.id === video.anime)
       return (
-      <div key={video.id} className="video-card" style={{ background: `linear-gradient(white, white) padding-box, ${fundoDoBotao(animeDoVideo)} border-box` }}>
+      <div key={video.id} className="video-card" style={{ background: `linear-gradient(var(--card), var(--card)) padding-box, ${fundoDoBotao(animeDoVideo)} border-box` }}>
           {videoTocando === video.id ? (
             <iframe
               src={`https://www.youtube.com/embed/${video.youtube_id}?autoplay=1`}
