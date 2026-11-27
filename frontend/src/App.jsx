@@ -177,8 +177,7 @@ function fundoDoBotao(anime){
     {videosMostrados.filter(video => video.tipo_display === tipo).map(video => {
       const animeDoVideo = animes.find(anime => anime.id === video.anime)
       return (
-      <div key={video.id} className="video-card">
-      <div className='faixa' style={{background: fundoDoBotao(animeDoVideo)}}></div>
+      <div key={video.id} className="video-card" style={{ background: `linear-gradient(white, white) padding-box, ${fundoDoBotao(animeDoVideo)} border-box` }}>
           {videoTocando === video.id ? (
             <iframe
               src={`https://www.youtube.com/embed/${video.youtube_id}?autoplay=1`}
