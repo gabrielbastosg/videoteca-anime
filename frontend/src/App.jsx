@@ -60,7 +60,7 @@ function salvarEdicao(e, id) {
         setVideoEditando(null)
       })  
     } else{
-      alert('Nao deu para salvar o video. Confere se o titulo e o link estao certos')
+      alert('Nao funcionou. Confere se o tipo e o anime estao certos')
     }
   })
 }
