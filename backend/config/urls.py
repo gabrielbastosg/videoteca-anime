@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from videos.views import VideoViewSet,AnimeViewSet
 from rest_framework.authtoken.views import obtain_auth_token
+from django.views.generic import RedirectView
 
 router = DefaultRouter()
 router.register('videos',VideoViewSet,basename='video')
@@ -28,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)), 
     path('api/login/', obtain_auth_token),
+    path('', RedirectView.as_view(url='/admin/'))
 ]
